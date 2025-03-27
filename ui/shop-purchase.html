@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店铺采购管理</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#48b0a0',
+                        'primary-dark': '#3d9686',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-700 min-h-screen">
+    <!-- 未登录状态 -->
+    <div id="loginPrompt" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
+            <div class="mb-6">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=200&fit=crop&auto=format&q=80" 
+                     alt="Welcome" 
+                     class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">欢迎使用店铺采购管理</h2>
+                <p class="text-gray-600">请使用微信登录以继续使用</p>
+            </div>
+            <button id="loginButton" class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                微信登录
+            </button>
+        </div>
+    </div>
+
+    <!-- 已登录状态 -->
+    <div id="mainContent" class="hidden">
+        <!-- 顶部导航栏 -->
+        <nav class="bg-primary text-white fixed top-0 left-0 right-0 z-50 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 py-4">
+                <h2 class="text-xl font-semibold text-center">店铺采购管理</h2>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto px-4 pt-20 pb-24">
+            <!-- 店铺选择器 -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <select class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300">
+                    <option value="">请选择店铺</option>
+                    <option value="1">示例店铺1</option>
+                    <option value="2">示例店铺2</option>
+                    <option value="3">示例店铺3</option>
+                </select>
+            </div>
+
+            <!-- 日期选择器 -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <input type="month" 
+                       value="2024-03"
+                       class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300">
+            </div>
+
+            <!-- 采购列表 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">采购日期</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">商品名称</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">数量</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">总价</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">备注</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-sm text-gray-600">2024-03-15</td>
+                                <td class="px-6 py-4 text-sm text-gray-800">商品A</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">10</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">¥1000</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">紧急采购</td>
+                                <td class="px-6 py-4">
+                                    <button class="edit-btn text-primary hover:text-primary-dark text-sm px-3 py-1 rounded-md hover:bg-primary/10 transition-all duration-200">
+                                        编辑
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-sm text-gray-600">2024-03-14</td>
+                                <td class="px-6 py-4 text-sm text-gray-800">商品B</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">5</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">¥500</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">常规采购</td>
+                                <td class="px-6 py-4">
+                                    <button class="edit-btn text-primary hover:text-primary-dark text-sm px-3 py-1 rounded-md hover:bg-primary/10 transition-all duration-200">
+                                        编辑
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 添加按钮 -->
+        <button id="addButton" class="fixed bottom-8 right-8 w-14 h-14 bg-primary hover:bg-primary-dark text-white rounded-full flex items-center justify-center text-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+            +
+        </button>
+
+        <!-- 新增/编辑采购详情弹窗 -->
+        <div id="purchaseModal" class="fixed inset-0 bg-black/30 backdrop-blur-sm hidden items-center justify-center z-50">
+            <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4">
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex justify-between items-center">
+                        <h3 id="modalTitle" class="text-xl font-semibold text-gray-800">新增采购详情</h3>
+                        <button id="closeButton" class="text-gray-400 hover:text-gray-600 text-2xl transition-colors duration-200">&times;</button>
+                    </div>
+                </div>
+                <form id="purchaseForm" class="p-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">采购日期</label>
+                            <input type="date" id="purchaseDate"
+                                   class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">商品名称</label>
+                            <input type="text" id="productName"
+                                   class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">数量</label>
+                            <input type="number" id="quantity"
+                                   min="1"
+                                   class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">总价</label>
+                            <input type="number" id="totalPrice"
+                                   min="0" 
+                                   step="0.01"
+                                   class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
+                                   required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">备注</label>
+                            <textarea id="remarks"
+                                class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 h-24 resize-none"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-3 mt-6">
+                        <button type="button" id="cancelButton"
+                                class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200">
+                            取消
+                        </button>
+                        <button type="submit" 
+                                class="px-4 py-2 text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors duration-200">
+                            保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM元素加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 模拟登录状态切换
+            document.getElementById('loginButton').addEventListener('click', function() {
+                document.getElementById('loginPrompt').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+            });
+
+            // 弹窗相关操作
+            const modal = document.getElementById('purchaseModal');
+            const addButton = document.getElementById('addButton');
+            const closeButton = document.getElementById('closeButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const purchaseForm = document.getElementById('purchaseForm');
+            const editButtons = document.querySelectorAll('.edit-btn');
+
+            // 打开弹窗 - 新增模式
+            function openNewModal() {
+                document.getElementById('modalTitle').textContent = '新增采购详情';
+                purchaseForm.reset(); // 清空表单
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+            
+            // 打开弹窗 - 编辑模式
+            function openEditModal(date, productName, quantity, totalPrice, remarks) {
+                document.getElementById('modalTitle').textContent = '编辑采购详情';
+                
+                // 填充表单
+                document.getElementById('purchaseDate').value = convertToDateFormat(date);
+                document.getElementById('productName').value = productName;
+                document.getElementById('quantity').value = quantity;
+                document.getElementById('totalPrice').value = totalPrice;
+                document.getElementById('remarks').value = remarks;
+                
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+            
+            // 将日期转换为 yyyy-MM-dd 格式
+            function convertToDateFormat(dateString) {
+                const date = new Date(dateString);
+                return date.toISOString().split('T')[0];
+            }
+
+            // 关闭弹窗
+            function closeModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+
+            // 添加按钮点击事件 - 新增模式
+            addButton.addEventListener('click', openNewModal);
+
+            // 关闭按钮点击事件
+            closeButton.addEventListener('click', closeModal);
+            cancelButton.addEventListener('click', closeModal);
+
+            // 点击弹窗外部关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // 编辑按钮点击事件
+            editButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const row = button.closest('tr');
+                    const date = row.querySelector('td:nth-child(1)').textContent;
+                    const productName = row.querySelector('td:nth-child(2)').textContent;
+                    const quantity = row.querySelector('td:nth-child(3)').textContent;
+                    const totalPrice = row.querySelector('td:nth-child(4)').textContent.replace('¥', '');
+                    const remarks = row.querySelector('td:nth-child(5)').textContent;
+
+                    openEditModal(date, productName, quantity, totalPrice, remarks);
+                });
+            });
+
+            // 表单提交事件
+            purchaseForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // 这里添加表单提交逻辑
+                closeModal();
+                // 可以添加保存成功的提示
+                alert('保存成功！');
+            });
+        });
+    </script>
+</body>
+</html> 
