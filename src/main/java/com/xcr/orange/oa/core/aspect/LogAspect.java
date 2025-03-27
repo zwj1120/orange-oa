@@ -28,7 +28,7 @@ public class LogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
 
-    @Around("execution(public * com.xcr.orange.oa.*(..))")
+    @Around("execution(public * com.xcr.orange.oa.controller.QaController.*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {

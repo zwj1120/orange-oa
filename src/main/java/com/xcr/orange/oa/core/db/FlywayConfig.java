@@ -20,7 +20,7 @@ public class FlywayConfig {
     /**
      * gdk数据源名
      */
-    private static final String DATASOURCE_NAME = "exam";
+    private static final String DATASOURCE_NAME = "oa";
 
     /**
      * 是否启用

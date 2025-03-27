@@ -423,7 +423,7 @@ public final class GdkUtils {
     public static DatabaseConfiguration getDbInfo(String dataSourceName) throws Exception {
         Map<String, CompositeDatabaseConfiguration> configurations = ConfigurationManager.getManager().getCompositeConfigurations();
         cn.hutool.core.lang.Assert.notEmpty(configurations, "datasource.xml中的连接属性不存在，请检查");
-        cn.hutool.core.lang.Assert.isTrue(configurations.containsKey(dataSourceName), "database.xml中数据库fmdc链接属性不存在，请检查");
+        cn.hutool.core.lang.Assert.isTrue(configurations.containsKey(dataSourceName), "database.xml中数据库oa链接属性不存在，请检查");
         for (Map.Entry<String, CompositeDatabaseConfiguration> entry : configurations.entrySet()) {
             String key = entry.getKey();
             if (!StringUtils.equalsIgnoreCase(key, dataSourceName)) {

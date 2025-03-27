@@ -52,10 +52,10 @@
 
     <!-- 处理静态文件请求，对静态文件不进行 Dispatcher -->
     <!--<mvc:default-servlet-handler/>-->
-    <mvc:resources mapping="/assets/**" location="/assets/" />
-    <mvc:resources mapping="/fh-ui/**" location="/fh-ui/"/>
-    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+<!--    <mvc:resources mapping="/assets/**" location="/assets/" />-->
+<!--    <mvc:resources mapping="/fh-ui/**" location="/fh-ui/"/>-->
+<!--    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>-->
+<!--    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>-->
 
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
     <bean id="contentNegotiationManager"
@@ -138,5 +138,5 @@
 <!--        <property name="exceptionAttribute" value="ex"> </property>-->
 <!--    </bean>-->
     
-    <import resource="classpath:/config/*/*-springmvc.xml"/>
+<!--    <import resource="classpath:/config/*/*-springmvc.xml"/>-->
 </beans>

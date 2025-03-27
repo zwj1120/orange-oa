@@ -21,7 +21,7 @@ CREATE SEQUENCE orange_oa_user_info_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-ALTER SEQUENCE orange_oa_user_info_seq OWNED BY orange_oa_user_info.id;
+ALTER SEQUENCE orange_oa_user_info_id_seq OWNED BY orange_oa_user_info.id;
 ALTER TABLE ONLY orange_oa_user_info ALTER COLUMN id SET DEFAULT nextval('orange_oa_user_info_id_seq'::regclass);
 
 
@@ -45,7 +45,7 @@ CREATE SEQUENCE orange_oa_store_info_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-ALTER SEQUENCE orange_oa_store_info_seq OWNED BY orange_oa_store_info.id;
+ALTER SEQUENCE orange_oa_store_info_id_seq OWNED BY orange_oa_store_info.id;
 ALTER TABLE ONLY orange_oa_store_info ALTER COLUMN id SET DEFAULT nextval('orange_oa_store_info_id_seq'::regclass);
 
 -- 创建 orange_oa_procurement_info表
@@ -80,5 +80,5 @@ CREATE SEQUENCE orange_oa_procurement_info_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-ALTER SEQUENCE orange_oa_procurement_info_seq OWNED BY orange_oa_procurement_info.id;
+ALTER SEQUENCE orange_oa_procurement_info_id_seq OWNED BY orange_oa_procurement_info.id;
 ALTER TABLE ONLY orange_oa_procurement_info ALTER COLUMN id SET DEFAULT nextval('orange_oa_procurement_info_id_seq'::regclass);
