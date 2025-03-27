@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>店铺采购管理</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -30,7 +32,7 @@
                 <p class="text-gray-600">请使用微信登录以继续使用</p>
             </div>
             <button id="loginButton" class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
-                微信登录
+                <i class="fab fa-weixin mr-2"></i>微信登录
             </button>
         </div>
     </div>
@@ -40,13 +42,23 @@
         <!-- 顶部导航栏 -->
         <nav class="bg-primary text-white fixed top-0 left-0 right-0 z-50 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 py-4">
-                <h2 class="text-xl font-semibold text-center">店铺采购管理</h2>
+                <div class="flex justify-between items-center">
+                    <div class="w-8"></div> <!-- 为了居中标题的占位 -->
+                    <h2 class="text-xl font-semibold text-center"><i class="fas fa-store mr-2"></i>店铺采购管理</h2>
+                    <button class="text-white w-8">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
             </div>
         </nav>
 
         <div class="max-w-7xl mx-auto px-4 pt-20 pb-24">
             <!-- 店铺选择器 -->
             <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex items-center text-gray-600 mb-2">
+                    <i class="fas fa-building mr-2"></i>
+                    <span class="text-sm font-medium">选择店铺</span>
+                </div>
                 <select class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300">
                     <option value="">请选择店铺</option>
                     <option value="1">示例店铺1</option>
@@ -57,6 +69,10 @@
 
             <!-- 日期选择器 -->
             <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <div class="flex items-center text-gray-600 mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span class="text-sm font-medium">选择月份</span>
+                </div>
                 <input type="month" 
                        value="2024-03"
                        class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300">
@@ -64,16 +80,53 @@
 
             <!-- 采购列表 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                        <i class="fas fa-list mr-2"></i>采购记录
+                    </h3>
+                    <div class="flex space-x-2">
+                        <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 transition-colors duration-200">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 transition-colors duration-200">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
                             <tr class="bg-gray-50">
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">采购日期</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">商品名称</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">数量</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">总价</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">备注</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">操作</th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="far fa-calendar mr-2"></i>采购日期
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-shopping-bag mr-2"></i>商品名称
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-sort-amount-up mr-2"></i>数量
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-yen-sign mr-2"></i>总价
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-comment-alt mr-2"></i>备注
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 text-left text-sm font-semibold text-primary">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-cog mr-2"></i>操作
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
@@ -85,7 +138,7 @@
                                 <td class="px-6 py-4 text-sm text-gray-600">紧急采购</td>
                                 <td class="px-6 py-4">
                                     <button class="edit-btn text-primary hover:text-primary-dark text-sm px-3 py-1 rounded-md hover:bg-primary/10 transition-all duration-200">
-                                        编辑
+                                        <i class="fas fa-edit mr-1"></i>编辑
                                     </button>
                                 </td>
                             </tr>
@@ -97,19 +150,24 @@
                                 <td class="px-6 py-4 text-sm text-gray-600">常规采购</td>
                                 <td class="px-6 py-4">
                                     <button class="edit-btn text-primary hover:text-primary-dark text-sm px-3 py-1 rounded-md hover:bg-primary/10 transition-all duration-200">
-                                        编辑
+                                        <i class="fas fa-edit mr-1"></i>编辑
                                     </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <!-- 空状态提示 -->
+                <div class="hidden py-16 flex flex-col items-center justify-center text-gray-400">
+                    <i class="fas fa-file-alt text-5xl mb-4"></i>
+                    <p>暂无采购记录</p>
+                </div>
             </div>
         </div>
 
         <!-- 添加按钮 -->
         <button id="addButton" class="fixed bottom-8 right-8 w-14 h-14 bg-primary hover:bg-primary-dark text-white rounded-full flex items-center justify-center text-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-            +
+            <i class="fas fa-plus"></i>
         </button>
 
         <!-- 新增/编辑采购详情弹窗 -->
@@ -117,33 +175,46 @@
             <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4">
                 <div class="p-6 border-b border-gray-100">
                     <div class="flex justify-between items-center">
-                        <h3 id="modalTitle" class="text-xl font-semibold text-gray-800">新增采购详情</h3>
-                        <button id="closeButton" class="text-gray-400 hover:text-gray-600 text-2xl transition-colors duration-200">&times;</button>
+                        <h3 id="modalTitle" class="text-xl font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-clipboard-list mr-2 text-primary"></i>
+                            新增采购详情
+                        </h3>
+                        <button id="closeButton" class="text-gray-400 hover:text-gray-600 text-2xl transition-colors duration-200">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                 </div>
                 <form id="purchaseForm" class="p-6">
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">采购日期</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                                <i class="far fa-calendar mr-2 text-primary"></i>采购日期
+                            </label>
                             <input type="date" id="purchaseDate"
                                    class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                                    required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">商品名称</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                                <i class="fas fa-shopping-bag mr-2 text-primary"></i>商品名称
+                            </label>
                             <input type="text" id="productName"
                                    class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                                    required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">数量</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                                <i class="fas fa-sort-amount-up mr-2 text-primary"></i>数量
+                            </label>
                             <input type="number" id="quantity"
                                    min="1"
                                    class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300"
                                    required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">总价</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                                <i class="fas fa-yen-sign mr-2 text-primary"></i>总价
+                            </label>
                             <input type="number" id="totalPrice"
                                    min="0" 
                                    step="0.01"
@@ -151,7 +222,9 @@
                                    required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">备注</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                                <i class="fas fa-comment-alt mr-2 text-primary"></i>备注
+                            </label>
                             <textarea id="remarks"
                                 class="w-full px-4 py-2 rounded-lg border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all duration-300 h-24 resize-none"
                             ></textarea>
@@ -159,12 +232,12 @@
                     </div>
                     <div class="flex justify-end gap-3 mt-6">
                         <button type="button" id="cancelButton"
-                                class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200">
-                            取消
+                                class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200 flex items-center">
+                            <i class="fas fa-times mr-2"></i>取消
                         </button>
                         <button type="submit" 
-                                class="px-4 py-2 text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors duration-200">
-                            保存
+                                class="px-4 py-2 text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors duration-200 flex items-center">
+                            <i class="fas fa-save mr-2"></i>保存
                         </button>
                     </div>
                 </form>
@@ -191,7 +264,7 @@
 
             // 打开弹窗 - 新增模式
             function openNewModal() {
-                document.getElementById('modalTitle').textContent = '新增采购详情';
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-clipboard-list mr-2 text-primary"></i>新增采购详情';
                 purchaseForm.reset(); // 清空表单
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
@@ -199,7 +272,7 @@
             
             // 打开弹窗 - 编辑模式
             function openEditModal(date, productName, quantity, totalPrice, remarks) {
-                document.getElementById('modalTitle').textContent = '编辑采购详情';
+                document.getElementById('modalTitle').innerHTML = '<i class="fas fa-edit mr-2 text-primary"></i>编辑采购详情';
                 
                 // 填充表单
                 document.getElementById('purchaseDate').value = convertToDateFormat(date);
@@ -257,9 +330,31 @@
                 e.preventDefault();
                 // 这里添加表单提交逻辑
                 closeModal();
-                // 可以添加保存成功的提示
-                alert('保存成功！');
+                
+                // 使用 Toast 提示保存成功
+                showToast('保存成功！');
             });
+            
+            // 显示提示消息
+            function showToast(message) {
+                // 创建 toast 元素
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-16 left-1/2 transform -translate-x-1/2 bg-primary text-white py-2 px-4 rounded-lg shadow-lg z-50 flex items-center';
+                toast.innerHTML = `
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // 2秒后自动消失
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                    setTimeout(() => {
+                        document.body.removeChild(toast);
+                    }, 300);
+                }, 2000);
+            }
         });
     </script>
 </body>
