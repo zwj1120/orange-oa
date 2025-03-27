@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > debugModeOpen > TRACE > ALL -->
+<!--status: 用于设置 log4j2 自身内部的信息输出，可以不设置，当设置成trace时，会输出 log4j2 内部各种详细输出-->
+<!--monitorInterval: Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<configuration status="error" monitorInterval="30">
+    <properties>
+        <!--输出日志的格式-->
+        <property name="pattern">[%d{MM-dd HH:mm:ss:SSS}] [%p] [%t] - %l - %m%n</property>
+        <!--日志文件输出根路径。每个模块根据需要填写，比如：web 服务可以填写 ${sys:catalina.home}/logs-->
+        <property name="logDir">${sys:catalina.home}/logs</property>
+        <!--每个日志文件的大小，默认为50MB，单位可以是KB、MB、GB-->
+        <property name="maxFileSize">50MB</property>
+        <!--备份文件的最大数量，默认为10-->
+        <property name="maxBackupCount">10</property>
+        <!--备份日志保留时间，默认为7天。
+            该时间需要与filePattern保持协调，如果后者按小时进行切分文件，则需要写成nH的形式，
+            数字最好大于2，避免删除文件时，因文件被占用导致删除失败-->
+        <property name="maxCleanInterval">7D</property>
+        <!--log4j2 全局日志输出级别，默认值为 INFO。可以从系统属性‘log4j2.level’中获取。-->
+        <property name="level">${sys:log4j2.level:-INFO}</property>
+        <!--控制台日志的输出级别，默认值为 OFF。可以从系统属性‘consoleLevel’中获取。
+            用于控制在tomcat服务器中运行时，输出到 catalina.out 文件中的日志。在本地调试时可以将其打开-->
+        <property name="consoleLevel">${sys:consoleLevel:-OFF}</property>
+    </properties>
+
+    <!--定义所有的appender-->
+    <appenders>
+        <!--输出控制台的配置-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="${pattern}"/>
+        </console>
+
+        <!--系统日志文件配置-->
+        <RollingFile name="RollingFileSystem" fileName="${logDir}/system.log"
+                     filePattern="${logDir}/$${date:yyyy-MM}/system-%d{yyyy-MM-dd}-%i.log.gz">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxFileSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="9" max="${maxBackupCount}">
+                <Delete basePath="${logDir}" maxDepth="2">
+                    <IfFileName glob="**.log.gz"/>
+                    <IfLastModified age="${maxCleanInterval}"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!--错误文件日志配置-->
+        <RollingFile name="RollingFileError" fileName="${logDir}/error.log"
+                     filePattern="${logDir}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <!--该过滤器只接收error级别的日志-->
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxFileSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy compressionLevel="9" max="${maxBackupCount}">
+                <Delete basePath="${logDir}" maxDepth="2">
+                    <IfFileName glob="**.log.gz"/>
+                    <IfLastModified age="${maxCleanInterval}"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+<!--        <Routing name="ThreadFileAppender">-->
+<!--            <Routes pattern="$${ctx:threadId:-main}">-->
+<!--                <Route>-->
+<!--                    <RollingFile name="${ctx:threadId:-main}"-->
+<!--                                 fileName="${logDir}/task/${ctx:threadId:-main}.log"-->
+<!--                                 filePattern="${logDir}/task/$${date:yyyy-MM}/${ctx:threadId:-main}-%d{yyyy-MM-dd}-%i.log.gz">-->
+<!--                        <PatternLayout pattern="${pattern}"/>-->
+<!--                        <Policies>-->
+<!--                            <TimeBasedTriggeringPolicy/>-->
+<!--                            <SizeBasedTriggeringPolicy size="${maxFileSize}"/>-->
+<!--                        </Policies>-->
+<!--                    </RollingFile>-->
+<!--                </Route>-->
+<!--            </Routes>-->
+<!--        </Routing>-->
+    </appenders>
+
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <root level="${level}">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileSystem"/>
+            <appender-ref ref="RollingFileError"/>
+<!--            <appender-ref ref="ThreadFileAppender"/>-->
+        </root>
+
+        <!--过滤掉一些不需要输出的日志-->
+        <!--level: 指定允许输出的日志级别，只有高于指定级别日志才能够输出-->
+        <!--additivity: 设置子 logger 是否可以继承父 logger 的输出配置(appender) -->
+        <logger name="org.springframework" level="ERROR" additivity="false"/>
+        <logger name="com.alibaba.druid" level="ERROR" additivity="false"/>
+        <logger name="org.apache" level="ERROR" additivity="false"/>
+        <logger name="org.apache.velocity" level="FATAL" additivity="false"/>
+        <logger name="com.nuts.framework.config" level="OFF" additivity="false"/>
+    </loggers>
+</configuration>

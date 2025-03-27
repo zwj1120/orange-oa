@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources>
+
+    <constants>
+        <constant name="connection-provider" value="com.gdk.jdbc.connection.druid.DruidConnectionProvider"/>
+    </constants>
+
+    <datasource name="oa">
+        <driver-class>org.postgresql.Driver</driver-class>
+        <driver-url>jdbc:postgresql://192.168.1.5:5432/orange_oa?characterEncoding=UTF-8</driver-url>
+        <user>postgres</user>
+        <password>000000</password>
+        <max-connection-size>50</max-connection-size>
+        <min-connection-size>5</min-connection-size>
+        <init-connection-size>5</init-connection-size>
+        <acquire-increment-size>5</acquire-increment-size>
+        <available-connection-size>5</available-connection-size>
+        <max-connection-idletime>3600</max-connection-idletime>
+        <max-connection-lifetime>14400</max-connection-lifetime>
+        <connection-timeout>5000</connection-timeout>
+        <idle-connection-test-period>1800</idle-connection-test-period>
+        <test-sql>SELECT 1</test-sql>
+        <test-connection-checkout>true</test-connection-checkout>
+        <load-on-startup>false</load-on-startup>
+        <show-sql>false</show-sql>
+
+        <!--解决druid连接池泄露问题-->
+        <customize>
+            <!--是否打开强制回收连接功能-->
+            <druid.removeAbandoned>true</druid.removeAbandoned>
+            <!--超时时间，单位：毫秒-->
+            <druid.removeAbandonedTimeoutMillis>60000</druid.removeAbandonedTimeoutMillis>
+            <!--连接回收时是否记录日志-->
+            <druid.logAbandoned>true</druid.logAbandoned>
+
+
+            <!--建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。-->
+            <druid.testWhileIdle>true</druid.testWhileIdle>
+            <!--用来检测连接是否有效的sql 例如：select 1-->
+            <druid.validationQuery>SELECT 1</druid.validationQuery>
+            <!-- 1) Destroy线程会检测连接的间隔时间，如果连接空闲时间大于等于minEvictableIdleTimeMillis则关闭物理连接。2) testWhileIdle的判断依据，详细看testWhileIdle属性的说明-->
+            <druid.timeBetweenEvictionRunsMillis>36000</druid.timeBetweenEvictionRunsMillis>
+            <!--一个连接在池中最大生存的时间 -->
+            <druid.maxEvictableIdleTimeMillis>14400000</druid.maxEvictableIdleTimeMillis>
+        </customize>
+
+    </datasource>
+
+</datasources>

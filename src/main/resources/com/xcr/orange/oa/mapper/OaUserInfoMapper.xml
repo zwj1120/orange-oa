@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.xcr.orange.oa.mapper.OaUserInfoMapper">
+
+    <select id="test" resultType="java.lang.Integer">
+        select 1;
+    </select>
+</mapper>

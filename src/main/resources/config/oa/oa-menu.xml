@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <menus>
+        <menu optId="OrangeOA" optName="小桔子OA" isInToolbar="Y" oderInd="0">
+        </menu>
+    </menus>
+</config>
+

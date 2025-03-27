@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ProcessList>
+    <Process Name="Ts_Exam_App" Enable="yes">
+        <WorkPath>
+            /home/fiberhome/TSEA/bin/
+        </WorkPath>
+        <StartCmd>
+            sh TSEA.sh start
+        </StartCmd>
+        <Matches>
+            <Match>TSEA/bin</Match>
+        </Matches>
+    </Process>
+</ProcessList>

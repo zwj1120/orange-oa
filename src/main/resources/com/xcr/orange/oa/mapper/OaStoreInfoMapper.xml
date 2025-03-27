@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.xcr.orange.oa.mapper.OaStoreInfoMapper">
+
+    <select id="test" resultType="com.xcr.orange.oa.bean.StoreInfoDO">
+        SELECT * FROM orange_oa_store_info WHERE id =:storeId
+    </select>
+</mapper>

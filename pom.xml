@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.fiberhome.daml</groupId>
+        <artifactId>galaxy-parent</artifactId>
+        <version>0.9.0-SNAPSHOT</version>
+    </parent>
+
+
+    <groupId>com.xcr</groupId>
+    <artifactId>orange-oa</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <properties>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <unzip.name>${project.artifactId}-install-${project.version}</unzip.name>
+        <install.finalName>
+            Orange_Oa_App-install-runtime-${project.version}-allsystem-${maven.build.timestamp}
+        </install.finalName>
+        <war.package.name>${project.artifactId}-${project.version}</war.package.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fiberhome.daml</groupId>
+            <artifactId>bdp-enhance</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-to-slf4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>activemq*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>apollo*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>quartz</artifactId>
+                    <groupId>org.quartz-scheduler</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- log4j2 begin -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+        </dependency>
+        <!-- log4j2 end -->
+
+
+        <!--        poi-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.poi</groupId>
+                    <artifactId>poi-ooxml-schemas</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.poi</groupId>
+                    <artifactId>poi</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml-schemas</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+        <!--        -->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.commons</groupId>-->
+        <!--            <artifactId>commons-pool2</artifactId>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>commons-beanutils</groupId>-->
+        <!--            <artifactId>commons-beanutils</artifactId>-->
+        <!--            <version>1.9.4</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.7.5</version>
+        </dependency>
+
+        <!--util-->
+        <!--        <dependency>-->
+        <!--            <groupId>commons-fileupload</groupId>-->
+        <!--            <artifactId>commons-fileupload</artifactId>-->
+        <!--            <version>1.5</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>commons-httpclient</groupId>-->
+        <!--            <artifactId>commons-httpclient</artifactId>-->
+        <!--            <version>3.1</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.mortbay.jetty</groupId>-->
+        <!--            <artifactId>jetty-util</artifactId>-->
+        <!--            <version>6.1.26</version>-->
+        <!--        </dependency>-->
+        <!--util-->
+
+        <!--db-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <!--db-->
+
+        <!--web-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--web-->
+
+        <!--junit-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.glassfish</groupId>-->
+        <!--            <artifactId>javax.el</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <!--junit-->
+
+        <!--spring-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-instrument</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework</groupId>-->
+        <!--            <artifactId>spring-test</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.plugin</groupId>
+            <artifactId>spring-plugin-core</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.plugin</groupId>
+            <artifactId>spring-plugin-metadata</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>taglibs</groupId>-->
+        <!--            <artifactId>standard</artifactId>-->
+        <!--            <version>1.1.2</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.jayway.jsonpath</groupId>-->
+        <!--            <artifactId>json-path</artifactId>-->
+        <!--            <version>2.4.0</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>json-smart</artifactId>-->
+        <!--                    <groupId>net.minidev</groupId>-->
+        <!--                </exclusion>-->
+        <!--                <exclusion>-->
+        <!--                    <artifactId>accessors-smart</artifactId>-->
+        <!--                    <groupId>net.minidev</groupId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>freemarker</groupId>-->
+        <!--            <artifactId>freemarker</artifactId>-->
+        <!--            <version>2.3.28</version>-->
+        <!--        </dependency>-->
+
+        <!-- dti start-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.fh</groupId>-->
+        <!--            <artifactId>guava-fh</artifactId>-->
+        <!--            <version>18.0</version>-->
+        <!--        </dependency>-->
+
+        <!--        <dependency>-->
+        <!--            <groupId>net.sourceforge.jtds</groupId>-->
+        <!--            <artifactId>jtds</artifactId>-->
+        <!--            <version>1.3.1</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>5.2.4</version>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>net.lingala.zip4j</groupId>-->
+        <!--            <artifactId>zip4j</artifactId>-->
+        <!--            <version>2.5.1</version>-->
+        <!--        </dependency>-->
+
+        <!-- Excel解析需要，与parent定义版本不兼容，故单独申明 -->
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.fiberhome.daml</groupId>-->
+        <!--            <artifactId>common-test</artifactId>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-swagger2</artifactId>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fiberhome.daml</groupId>
+            <artifactId>common-standard</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fiberhome.daml</groupId>
+            <artifactId>common-extends</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fiberhome.daml</groupId>
+            <artifactId>gdk-spring</artifactId>
+        </dependency>
+
+
+<!--        <dependency>-->
+<!--            <groupId>com.fiberhome.fmdb</groupId>-->
+<!--            <artifactId>fmdb-jdbc</artifactId>-->
+<!--            <version>1.5.20-release-20221208-allstandalone</version>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>8.0.32</version>-->
+<!--        </dependency>-->
+
+    </dependencies>
+
+
+    <profiles>
+        <profile>
+            <id>assembly</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <assemblyType>assembly.xml</assemblyType>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>${war.package.name}</finalName>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+
+            <!--依赖jar包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <finalName>${install.finalName}</finalName>
+                    <outputDirectory>${project.basedir}/target</outputDirectory>
+                    <descriptors>
+                        <descriptor>${project.basedir}/assembly/${assemblyType}</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <!--第1个zip-->
+                    <execution>
+                        <id>unpack-zip-1</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- 解压ZIP文件到指定目录 -->
+                                <unzip src="install/apache-tomcat-8.0.47/bin/bin.zip"
+                                       dest="install/apache-tomcat-8.0.47/bin"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <!--第2个zip-->
+                    <execution>
+                        <id>unpack-zip-2</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- 解压ZIP文件到指定目录 -->
+                                <unzip src="install/apache-tomcat-8.0.47/lib/lib.zip"
+                                       dest="install/apache-tomcat-8.0.47/lib"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	
+	<xs:annotation>
+		<xs:documentation><![CDATA[
+		GDK-DB3 SQL-File mapper Configuation Schema, version 3.2.0
+		Author: yswang
+		Date: 2019/04/09
+		]]></xs:documentation>
+	</xs:annotation>
+	
+	<!-- 自定义数据类型：值不能为空 -->
+	<xs:simpleType name="d_required">
+		<xs:restriction base="xs:string">
+			<!-- 处理所有的空白字符 -->
+			<xs:whiteSpace value="collapse"/>
+			<xs:minLength value="1" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="mixed_type" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="include">
+				<xs:complexType>
+					<xs:attribute name="refid" use="required" type="xs:string" />
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	
+	<!-- 混合型元素类型：元素内容既可以包含文本，也可以包含其他元素 -->
+	<xs:complexType name="common_type" mixed="true">
+		<xs:complexContent mixed="true">
+			<xs:extension base="mixed_type">
+				<xs:attribute name="id" use="required" type="d_required"/>
+				
+				<!-- 是否批量操作，此属性只针对 insert,update,delete语句有效 -->
+				<xs:attribute name="batch" use="optional" type="xs:boolean"/>
+				<!-- 设置每批次的数量 -->
+				<xs:attribute name="batchSize" use="optional" type="xs:int"/>
+				
+				<!-- 是否返回自增主键值，此属性只针对 insert 语句有效 -->
+				<xs:attribute name="returnGeneratedKey" use="optional" type="xs:boolean"/>
+				
+				<!-- 返回类型 -->
+				<xs:attribute name="resultType" use="optional" type="xs:string"/>
+				
+				<!-- 支持额外的脚本语法引擎，内置了默认脚本引擎 和 Velocity 脚本引擎 -->
+				<xs:attribute name="script" use="optional" type="xs:string" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-- 根元素 -->
+	<xs:element name="mapper">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="sql" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="select" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="insert" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="update" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="delete" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="call" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:choice>
+			
+			<xs:attribute name="script" use="optional" type="xs:string"/>
+			<!-- 增加 namespace 属性，为了使用idea的MyBatista插件识别到xml配置文件，方便开发。 by chentf -->
+			<xs:attribute name="namespace" use="optional" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="sql" type="common_type" />
+	
+	<xs:element name="select" type="common_type" />
+			
+	<xs:element name="insert" type="common_type" />
+	
+	<xs:element name="update" type="common_type" />
+	
+	<xs:element name="delete" type="common_type" />
+	
+	<xs:element name="call" type="common_type" />
+	
+</xs:schema>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.xcr.orange.oa.mapper.OaProcurementInfoMapper">
+
+    <select id="test" resultType="com.xcr.orange.oa.bean.ProcurementInfoDO">
+        SELECT * FROM orange_oa_procurement_info WHERE id =:procurementId
+    </select>
+</mapper>

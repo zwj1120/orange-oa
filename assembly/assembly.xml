@@ -1,0 +1,74 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+    <id>install</id>
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <fileSets>
+        <!--安装文件-->
+        <fileSet>
+            <directory>${project.basedir}/install</directory>
+            <includes>
+                <include>fude_guard_orange-oa.xml</include>
+                <include>globe.common.conf</include>
+                <include>install.sh</include>
+                <include>*tomcat*.tar.gz</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+
+<!--        &lt;!&ndash;安装文档&ndash;&gt;-->
+<!--        <fileSet>-->
+<!--            <directory>${project.basedir}/install</directory>-->
+<!--            <includes>-->
+<!--                <include>*.doc</include>-->
+<!--            </includes>-->
+<!--            <outputDirectory>./</outputDirectory>-->
+<!--        </fileSet>-->
+
+        <!--版本文件-->
+        <fileSet>
+            <directory>${project.basedir}/</directory>
+            <includes>
+                <include>release-note</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+
+        <!--启动脚本-->
+        <fileSet>
+            <directory>${project.basedir}/install/bin</directory>
+            <outputDirectory>bin/</outputDirectory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+
+        <!--tomcat-->
+        <fileSet>
+            <directory>${project.basedir}/install/apache-tomcat-8.0.47</directory>
+            <outputDirectory>ORANGE-OA/</outputDirectory>
+            <excludes>
+                <exclude>**/bin.zip</exclude>
+                <exclude>**/lib.zip</exclude>
+            </excludes>
+        </fileSet>
+
+        <!--webapps-->
+        <fileSet>
+            <directory>${project.basedir}/target/${project.artifactId}-${project.version}</directory>
+            <outputDirectory>ORANGE-OA/webapps/orange-oa</outputDirectory>
+            <excludes>
+                <exclude>WEB-INF/lib/log4j-to-slf4j-*.jar</exclude>
+                <exclude>WEB-INF/lib/spring-boot-starter-*.jar</exclude>
+            </excludes>
+        </fileSet>
+
+    </fileSets>
+</assembly>
